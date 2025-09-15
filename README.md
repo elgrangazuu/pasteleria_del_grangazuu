@@ -1,168 +1,41 @@
-![banner](./imagenes/banner.jpg)
-# Sui Starter Kit Backend
+Descripción del Programa: Sistema de Inventario de Materias Primas para Pastelería
 
-Sui es una plataforma de blockchain y contratos inteligentes de capa 1 diseñada para que la propiedad de activos digitales sea rápida, privada, segura y accesible.
+Este programa, desarrollado en Move para la blockchain Sui, implementa un sistema de gestión de inventario de materias primas para una pastelería. Su objetivo es permitir el registro, actualización y control de los ingredientes esenciales utilizados en la producción de productos de panadería y repostería.
 
-Move es un lenguaje de código abierto para escribir paquetes seguros para manipular objetos en blockchain. Permite bibliotecas, herramientas y comunidades de desarrolladores comunes en blockchains con modelos de datos y ejecución muy diferentes.
+Funciones principales:
 
-## Proyecto base
+Crear inventario: Se puede generar un inventario vacío que servirá como contenedor de todas las materias primas de la pastelería. Cada inventario tiene un identificador único en la blockchain.
 
-Puedes usar este repositorio como tu punto de partida para el desarrollo de tu proyecto backend.
+Agregar materias primas: Permite registrar ingredientes nuevos en el inventario, indicando su nombre, cantidad disponible, unidad de medida y proveedor. Ejemplos típicos incluyen harina, leche, azúcar, mantequilla y huevos.
 
-### Abriendo con Codespaces
+Actualizar cantidades: Permite modificar la cantidad disponible de un ingrediente, por ejemplo, al recibir nuevos suministros o consumir materia prima en la producción.
 
-* Asegúrate de clonar este repositorio a tu cuenta usando el botón **`Fork`**.
-    
-    ![fork](./imagenes/fork.png)
-    * Puedes renombrar el repositorio a lo que sea que se ajuste con tu proyecto.
-* Presiona el botón **`<> Code`** y luego haz click en la sección **`Codespaces`**
+Eliminar materias primas: Permite eliminar del inventario aquellos ingredientes que se han agotado o que ya no se utilizan, asegurando que el inventario refleje correctamente el estado actual de la pastelería.
 
-    ![codespaces](./imagenes/codespaces.png)
+Tecnologías utilizadas:
 
-* Por último, presiona **`Create codespace on master`**. Esto abrirá el proyecto en una interfaz gráfica de Visual Studio Code e instalará todas las herramientas necesarias para desarrollar con Move.
+Move: Lenguaje de programación para contratos inteligentes, que asegura seguridad en la gestión de recursos digitales.
 
-### Contenido
+Sui Blockchain: Plataforma que permite almacenar de manera segura los inventarios como objetos digitales, garantizando integridad y trazabilidad.
 
-Este proyecto instala las siguientes herramientas:
-* [SuiUp](https://github.com/Mystenlabs/suiup/) (Administrador de versiones).
-* [Sui CLI](https://docs.sui.io/references/cli/client) (Instalada usando SuiUp).
-* Extensión de VS Code [Move](https://marketplace.visualstudio.com/items?itemName=mysten.move).
-* Extensión de VS Code [Move Formatter](https://marketplace.visualstudio.com/items?itemName=mysten.prettier-move).
+VecMap: Estructura de datos utilizada para almacenar y buscar materias primas por su identificador.
 
-Todas las herramientas fueron desarrolladas por [MystenLabs](https://www.mystenlabs.com/).
+Ventajas del sistema:
 
-## Ejecutando el proyecto
+Registro seguro y confiable de las materias primas.
 
-Ingresa a tu terminal y ejecuta el siguiente comando:
+Posibilidad de escalar y agregar más funcionalidades como alertas de stock bajo o reportes de consumo.
 
-```sh
-sui move test
-```
+Permite la trazabilidad de los ingredientes y proveedores gracias al almacenamiento en blockchain.
 
-Deberías de obtener el siguiente resultado:
-```sh
-INCLUDING DEPENDENCY Bridge
-INCLUDING DEPENDENCY SuiSystem
-INCLUDING DEPENDENCY Sui
-INCLUDING DEPENDENCY MoveStdlib
-BUILDING Intro
-Running Move unit tests
-[debug] "Hello, World!"
-[ PASS    ] introduccion::practica_sui::prueba
-Test result: OK. Total tests: 1; passed: 1; failed: 0
-```
+Ejemplo de uso:
 
-¡Felicidades! :partying_face: Acabas de ejecutar de manera exitosa tu primer módulo Move. Ahora, analicemos que está pasando.
+Crear un inventario de materias primas.
 
-En la carpeta `sources` podemos encontrar un archivo llamado `starter.move`. Este archivo, como lo indica la extensión, contiene el código de Move que estamos ejecutando. En este caso, es un **módulo** con una **función** y un **test**.
+Agregar Harina (1000g), Leche (500ml) y Azúcar (300g).
 
-## Estructura de un módulo
+Actualizar la cantidad de Harina a 1500g después de recibir un nuevo suministro.
 
-La estructura de un **módulo** es la siguiente:
+Eliminar Leche cuando se termine su stock.
 
-```rust
-module direccion::nombre_modulo {
-    // ...  resto del código
-}
-```
-
-1. Declaración del módulo con la palabra clave `module`.
-2. Dirección en la que se desplegará el módulo.
-    La dirección la encontramos en el archivo de configuraciones `Move.toml`, en el apartado de `addresses`. En nuestro caso:
-    ```toml
-    [addresses]
-    starter = "0x0"
-    ```
-3. Nombre del módulo, en nuestro caso: `practica_sui`
-
-Por lo que nuestro código luce así:
-```rust
-module introduccion::practica_sui {
-    // ...  resto del código
-}
-```
-
-Después, vienen los `imports` o los módulos/librerías que estamos importando para que el nuestro funcione. En nuestro código, estamos importando dos funciones de la librería principal de **Move**:
-
-```rust
-    use std::debug::print;
-    use std::string::utf8;
-```
-
-Se importa la función para imprimir en consola, así como una función para convertir cadenas de texto a un formato aceptado por la función anterior.
-
-La siguiente sección de código incluye nuestra primera función:
-
-```rust
-    fun practica() {
-        print(&utf8(b"Hello, World!"));
-    }
-```
-
-En ella, hacemos uso de ambas librerías importadas. La función simplemente imprime la cadena `Hello, World!` en la consola.
-
-Y por último, necesitamos una forma de ejecutar esta función. Por ahora lo estamos haciendo a través de un **bloque de pruebas** o `test`:
-
-```rust
-    #[test]
-    fun prueba() {
-        practica();
-    }
-```
-
-Al nosotros haber ejecutado `sui move test` le estamos diciendo a la CLI que ejecute todas las funciones que tengan un bloque `[#test]`, en este caso, ejecuta nuestra función `prueba`, la cual a su vez llama a la función `practica`.
-
-## Output
-
-Por último, analicemos el resultado que se imprimió en la consola.
-
-```sh
-INCLUDING DEPENDENCY Bridge
-INCLUDING DEPENDENCY SuiSystem
-INCLUDING DEPENDENCY Sui
-INCLUDING DEPENDENCY MoveStdlib
-BUILDING Intro
-Running Move unit tests
-[debug] "Hello, World!"
-[ PASS    ] introduccion::practica_sui::prueba
-Test result: OK. Total tests: 1; passed: 1; failed: 0
-```
-
-El primer bloque de texto nos indica que está incluyendo las dependencias necesarias para ejecutar el proyecto:
-
-```sh
-INCLUDING DEPENDENCY Bridge
-INCLUDING DEPENDENCY SuiSystem
-INCLUDING DEPENDENCY Sui
-INCLUDING DEPENDENCY MoveStdlib
-BUILDING Intro
-```
-
-Estas dependencias son las dependencias básicas que todo paquete en **Move** necesita, así que el compilador las importa de manera automática.
-Puedes comprobar que no estamos importando ninguna dependencia en el archivo `Move.toml` en el apartado `[dependencies]`.
-
-La siguiente línea en el output nos indica que se ejecutaran las pruebas unitarias en el archivo, recuerda que esto es porque corrimos el comando `sui move test`:
-```
-Running Move unit tests
-```
-
-Después, obtenemos el mensaje que ejecuta la función prueba, en nuestro caso, la línea de texto `Hello, World!`:
-```sh
-[debug] "Hello, World!"
-```
-
-Ahora, en la siguiente línea, podemos obtener información de exactamente que funciones se ejecutaron:
-```sh
-[ PASS    ] starter::practica_sui::prueba
-```
-La estructura es algo así:
-```rust
-direccion::nombre_modulo::funcion
-```
-Con esto, podemos comprobar que la función que se ejecutó fue `prueba`.
-
-Por último, obtenemos información sobre las pruebas unitarias, cómo cuantas se ejecutaron y cuantas se pasaron:
-
-```sh
-Test result: OK. Total tests: 1; passed: 1; failed: 0
-```
+Este programa proporciona una base sólida para digitalizar la gestión de ingredientes en una pastelería, combinando las ventajas de la blockchain con la estructura lógica y segura del lenguaje Move.
