@@ -1,41 +1,37 @@
-Descripción del Programa: Sistema de Inventario de Materias Primas para Pastelería
+📦 Descripción del Programa: Sistema de Inventario de Materias Primas para Pastelería 🧁🥐
 
-Este programa, desarrollado en Move para la blockchain Sui, implementa un sistema de gestión de inventario de materias primas para una pastelería. Su objetivo es permitir el registro, actualización y control de los ingredientes esenciales utilizados en la producción de productos de panadería y repostería.
+Este programa, desarrollado en Move para la blockchain Sui ⛓️, implementa un sistema de gestión de inventario de materias primas para una pastelería. Su objetivo es permitir el registro, actualización y control de los ingredientes esenciales 🍞🧈🍫 utilizados en la producción de productos de panadería y repostería.
 
 Funciones principales:
 
-Crear inventario: Se puede generar un inventario vacío que servirá como contenedor de todas las materias primas de la pastelería. Cada inventario tiene un identificador único en la blockchain.
+📝 Crear inventario: Genera un inventario vacío para almacenar todas las materias primas con un identificador único en la blockchain.
 
-Agregar materias primas: Permite registrar ingredientes nuevos en el inventario, indicando su nombre, cantidad disponible, unidad de medida y proveedor. Ejemplos típicos incluyen harina, leche, azúcar, mantequilla y huevos.
+➕ Agregar materias primas: Registrar ingredientes nuevos indicando nombre, cantidad, unidad y proveedor. Ejemplos: Harina 🌾, Leche 🥛, Azúcar 🍬, Mantequilla 🧈, Huevos 🥚.
 
-Actualizar cantidades: Permite modificar la cantidad disponible de un ingrediente, por ejemplo, al recibir nuevos suministros o consumir materia prima en la producción.
+🔄 Actualizar cantidades: Modificar la cantidad disponible al recibir más stock o al consumir materias primas.
 
-Eliminar materias primas: Permite eliminar del inventario aquellos ingredientes que se han agotado o que ya no se utilizan, asegurando que el inventario refleje correctamente el estado actual de la pastelería.
+❌ Eliminar materias primas: Quitar ingredientes que se terminaron o que ya no se utilizan.
 
 Tecnologías utilizadas:
 
-Move: Lenguaje de programación para contratos inteligentes, que asegura seguridad en la gestión de recursos digitales.
+💻 Move: Lenguaje de contratos inteligentes seguro.
 
-Sui Blockchain: Plataforma que permite almacenar de manera segura los inventarios como objetos digitales, garantizando integridad y trazabilidad.
+⛓️ Sui Blockchain: Guarda inventarios como objetos digitales con integridad y trazabilidad.
 
-VecMap: Estructura de datos utilizada para almacenar y buscar materias primas por su identificador.
+🗂️ VecMap: Estructura para almacenar y buscar materias primas por su ID.
 
 Ventajas del sistema:
 
-Registro seguro y confiable de las materias primas.
+🔒 Registro seguro y confiable de materias primas.
 
-Posibilidad de escalar y agregar más funcionalidades como alertas de stock bajo o reportes de consumo.
+📈 Escalable, con posibilidad de agregar alertas de stock bajo o reportes de consumo.
 
-Permite la trazabilidad de los ingredientes y proveedores gracias al almacenamiento en blockchain.
+🧐 Trazabilidad de ingredientes y proveedores gracias a la blockchain.
 
 Ejemplo de uso:
+1️⃣ Crear un inventario de materias primas.
+2️⃣ Agregar Harina (1000g) 🌾, Leche (500ml) 🥛 y Azúcar (300g) 🍬.
+3️⃣ Actualizar cantidad de Harina a 1500g 🔄.
+4️⃣ Eliminar Leche cuando se termine ❌.
 
-Crear un inventario de materias primas.
-
-Agregar Harina (1000g), Leche (500ml) y Azúcar (300g).
-
-Actualizar la cantidad de Harina a 1500g después de recibir un nuevo suministro.
-
-Eliminar Leche cuando se termine su stock.
-
-Este programa proporciona una base sólida para digitalizar la gestión de ingredientes en una pastelería, combinando las ventajas de la blockchain con la estructura lógica y segura del lenguaje Move.
+Este programa proporciona una base sólida para digitalizar la gestión de ingredientes 🏪, combinando las ventajas de la blockchain ⛓️ con la seguridad del lenguaje Move 💻.
