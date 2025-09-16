@@ -125,4 +125,80 @@ Evitar duplicación de IDs: si id_materia viene de otra fuente, podrías generar
 
 Eventos: si planeas usar esto en un entorno con Sui Move, publicar eventos cuando se agregan o eliminan materias puede ayudar a la trazabilidad.
 ----------------------------------------------------------------------------------------------------------------------------------------------
+CODIGO
+#[allow(duplicate_alias)]
+module 0xDEADBEEF::materias_primas {
+    use sui::object;
+    use sui::tx_context::TxContext;
+    use sui::vec_map::{Self, VecMap};
+    use std::string::String;
+
+    // CÓDIGOS DE ERROR
+    const ID_YA_EXISTE: u64 = 1;
+    const ID_NO_EXISTE: u64 = 2;
+
+    // ESTRUCTURAS PRINCIPALES
+    // -------------------------------------------------
+    // Estructura que representa una materia prima
+    public struct MateriaPrima has key, store {
+        id: UID,
+        nombre: String,
+        cantidad: u64,
+        unidad: String,
+        proveedor: String,
+    }
+
+    // Estructura que representa un inventario de materias primas
+    public struct Inventario has key, store {
+        id: UID,
+        materias: VecMap<u64, MateriaPrima>,
+    }
+
+    // FUNCIONES PRINCIPALES
+    // -------------------------------------------------
+    // CREA UN NUEVO INVENTARIO VACÍO
+    #[allow(lint(self_transfer))]
+    public fun crear_inventario(ctx: &mut TxContext): Inventario {
+        Inventario {
+            id: object::new(ctx),
+            materias: vec_map::empty(),
+        }
+    }
+
+    // AGREGA UNA NUEVA MATERIA PRIMA AL INVENTARIO
+    public fun agregar_materia(
+        inventario: &mut Inventario,
+        id_materia: u64,
+        nombre: String,
+        cantidad: u64,
+        unidad: String,
+        proveedor: String,
+        ctx: &mut TxContext
+    ) {
+        assert!(!inventario.materias.contains(&id_materia), ID_YA_EXISTE);
+        let materia = MateriaPrima {
+            id: object::new(ctx),
+            nombre,
+            cantidad,
+            unidad,
+            proveedor,
+        };
+        inventario.materias.insert(id_materia, materia);
+    }
+
+    // ACTUALIZA LA CANTIDAD DE UNA MATERIA PRIMA EXISTENTE
+    public fun actualizar_cantidad(inventario: &mut Inventario, id_materia: u64, nueva_cantidad: u64) {
+        assert!(inventario.materias.contains(&id_materia), ID_NO_EXISTE);
+        let materia = inventario.materias.get_mut(&id_materia);
+        materia.cantidad = nueva_cantidad;
+    }
+
+    // ELIMINA UNA MATERIA PRIMA DEL INVENTARIO
+    public fun eliminar_materia(inventario: &mut Inventario, id_materia: u64) {
+        assert!(inventario.materias.contains(&id_materia), ID_NO_EXISTE);
+        let (_clave, valor) = inventario.materias.remove(&id_materia);
+        // CONSUMIMOS 'valor' PARA EVITAR ERROR DE "UNUSED VALUE WITHOUT DROP"
+        let _consume = valor;
+    }
+}
 
